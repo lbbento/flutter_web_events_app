@@ -15,14 +15,14 @@ class _EventScreenState extends State<EventScreen> implements EventScreenContrac
   @override
   void initState() {
     super.initState();
-    eventScreenPresenter = new EventScreenPresenter(this)
+    eventScreenPresenter = new EventScreenPresenter(this);
   }
 
   @override
   void screenUpdate() {
     setState(() {});
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
