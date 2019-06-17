@@ -3,7 +3,7 @@ import 'package:flutter_web/material.dart';
 import 'package:unisinos_events/events/data/eventapi.dart';
 import 'package:unisinos_events/events/event.dart';
 
-class EventAddDialog {
+class EventAddDialog extends StatelessWidget {
   
   final teTitle = TextEditingController();
   final teDescription = TextEditingController();
@@ -15,14 +15,8 @@ class EventAddDialog {
     decoration: TextDecoration.underline,
   );
 
-  Widget buildAboutDialog(
-      BuildContext context, _myEventPageState, Event event) {
-    if (event != null) {
-      this.event=event;
-      teTitle.text = event.title;
-      teDescription.text = event.description;
-      teDate.text = event.date;
-    }
+  @override
+  Widget build(BuildContext context) {
 
     return new AlertDialog(
       title: new Text('Add new Event'),
@@ -33,11 +27,10 @@ class EventAddDialog {
           children: <Widget>[
             getTextField("Enter title", teTitle),
             getTextField("Enter descriptiom", teDescription),
-            getTextField("DD-MM-YYYY", teDate),
+            getTextField("DD/MM/YYYY", teDate),
             new GestureDetector(
               onTap: () async {
                 if (await addRecord()) {
-                  _myEventPageState.displayRecord();
                   Navigator.of(context).pop();
                 }
               },

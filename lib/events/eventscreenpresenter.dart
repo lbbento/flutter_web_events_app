@@ -9,12 +9,12 @@ abstract class EventScreenContract {
 
 class EventScreenPresenter {
   EventScreenContract _view;
-  EventApi _eventapi;
+  EventApi _eventapi = new EventApi();
   
   EventScreenPresenter(this._view);
 
   Future<List<Event>> getEvent() {
-    _eventapi.getEvent();
+    return _eventapi.getEvent();
   }
 
   updateScreen() {
