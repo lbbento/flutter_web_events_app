@@ -1,25 +1,39 @@
 class Event {
-  int id;
   String title;
   String description;
   String date;
 
   Event({this.title, this.description, this.date});
 
-  Event.map(dynamic obj) {
-    this.title = obj["title"];
-    this.description = obj["description"];
-    this.date = obj["date"];
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+      title: json['title'],
+      description: json['description'],
+      date: json['date']
+    );
   }
 
-  Map<String, dynamic> toMap() {
-    var map = new Map<String, dynamic>();
-    map["firstname"] = title;
-    map["description"] = description;
-    map["date"] = date;
-    return map;
-  }
-  void setEventId(int id) {
-    this.id = id;
+  Map<String, dynamic> toJson() => {
+        'title': title,
+        'description': description,
+        'date': date
+  };
+}
+
+class EventList {
+  final List<Event> events;
+
+  EventList({
+    this.events
+  });
+
+  factory EventList.fromJson(List<dynamic> parsedJson) {
+
+    List<Event> events = new List<Event>();
+    events = parsedJson.map((i)=>Event.fromJson(i)).toList();
+
+    return new EventList(
+       events: events,
+    );
   }
 }

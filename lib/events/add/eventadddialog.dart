@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:unisinos_events/db/database_helper.dart';
+import 'package:flutter_web/material.dart';
+import 'package:unisinos_events/events/data/eventapi.dart';
 import 'package:unisinos_events/events/event.dart';
 
 class EventAddDialog {
@@ -35,10 +35,11 @@ class EventAddDialog {
             getTextField("Enter descriptiom", teDescription),
             getTextField("DD-MM-YYYY", teDate),
             new GestureDetector(
-              onTap: () {
-                addRecord();
-                _myEventPageState.displayRecord();
-                Navigator.of(context).pop();
+              onTap: () async {
+                if (await addRecord()) {
+                  _myEventPageState.displayRecord();
+                  Navigator.of(context).pop();
+                }
               },
               child: new Container(
                 margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
@@ -89,9 +90,9 @@ class EventAddDialog {
     return loginBtn;
   }
 
-  Future addRecord() async {
-    var db = new DatabaseHelper();
-    var event = new Event(title: teTitle.text, description: teDescription.text, date: teDate.text);
-    await db.saveEvent(event);
+  Future<bool> addRecord() async {
+    EventApi eventApi = EventApi();
+
+    return eventApi.putEvent(event);
   }
 }

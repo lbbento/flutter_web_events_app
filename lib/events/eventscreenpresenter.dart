@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:unisinos_events/db/database_helper.dart';
+import 'package:unisinos_events/events/data/eventapi.dart';
 import 'package:unisinos_events/events/event.dart';
 
 abstract class EventScreenContract {
@@ -9,16 +9,15 @@ abstract class EventScreenContract {
 
 class EventScreenPresenter {
   EventScreenContract _view;
-  var db = new DatabaseHelper();
+  EventApi _eventapi;
   
   EventScreenPresenter(this._view);
 
   Future<List<Event>> getEvent() {
-    return db.getEvent();
+    _eventapi.getEvent();
   }
 
   updateScreen() {
     _view.screenUpdate();
-
   }
 }
