@@ -7,7 +7,7 @@ import 'package:unisinos_events/events/event.dart';
 class EventApi {
 
   Future<List<Event>> getEvent() async {
-    final response = await http.get('http://40.121.150.132:8080/event');
+    final response = await http.get('http://unisinos.eastus.cloudapp.azure.com:8080/event');
 
     if (response.statusCode == 200) {
       final jsonContent = json.decode(response.body);
@@ -18,7 +18,7 @@ class EventApi {
   }
 
    Future<bool> putEvent(Event event) async {
-    final response = await http.put('http://40.121.150.132:8080/event', 
+    final response = await http.put('http://unisinos.eastus.cloudapp.azure.com:8080/event', 
                     headers: { 'Content-Type':'application/json' }, 
                     body: event.toJson());
 
