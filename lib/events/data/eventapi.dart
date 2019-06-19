@@ -7,26 +7,21 @@ import 'package:unisinos_events/events/event.dart';
 class EventApi {
 
   Future<List<Event>> getEvent() async {
-    var events = List<Event>();
-    events.add(new Event(title: "My Title", description: "Description", date: "10/10/2019"));
-    return events;
+    final response = await http.get('http://40.121.150.132:8080/event');
 
-    // final response = await http.get('https://jsonplaceholder.typicode.com/event');
-
-    // if (response.statusCode == 200) {
-    //   final jsonContent = json.decode(response.body);
-    //   return EventList.fromJson(jsonContent).events;
-    // } else {
-    //   throw Exception('Erro ao carregar eventos');
-    // }
+    if (response.statusCode == 200) {
+      final jsonContent = json.decode(response.body);
+      return EventList.fromJson(jsonContent).events;
+    } else {
+      throw Exception('Erro ao carregar eventos');
+    }
   }
 
    Future<bool> putEvent(Event event) async {
-    // final response = await http.put('https://jsonplaceholder.typicode.com/event', 
-    //                 headers: { 'Content-Type':'application/json' }, 
-    //                 body: event.toJson());
+    final response = await http.put('http://40.121.150.132:8080/event', 
+                    headers: { 'Content-Type':'application/json' }, 
+                    body: event.toJson());
 
-    // return response.statusCode == 200;
-    return true;
+    return response.statusCode == 200;
   }
 }
