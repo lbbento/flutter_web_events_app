@@ -19,8 +19,9 @@ class EventApi {
 
    Future<bool> putEvent(Event event) async {
     final response = await http.put('http://unisinos.eastus.cloudapp.azure.com:8080/event', 
-                    headers: { 'Content-Type':'application/json' }, 
-                    body: event.toJson());
+                      headers: {"content-type": "application/json"}, 
+                      body: json.encode(event.toJson())
+                    );
 
     return response.statusCode == 200;
   }

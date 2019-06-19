@@ -8,7 +8,6 @@ class EventAddDialog extends StatelessWidget {
   final teTitle = TextEditingController();
   final teDescription = TextEditingController();
   final teDate = TextEditingController();
-  Event event;
 
   static const TextStyle linkStyle = const TextStyle(
     color: Colors.blue,
@@ -19,18 +18,18 @@ class EventAddDialog extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return new AlertDialog(
-      title: new Text('Add new Event'),
+      title: new Text('Adicionar novo evento'),
       content: new SingleChildScrollView(
         child: new Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            getTextField("Enter title", teTitle),
-            getTextField("Enter descriptiom", teDescription),
+            getTextField("Entre o titulo", teTitle),
+            getTextField("Entre a descricao", teDescription),
             getTextField("DD/MM/YYYY", teDate),
             new GestureDetector(
               onTap: () async {
-                if (await addRecord()) {
+                if (await addRecord(new Event(title: teTitle.text, description: teDescription.text, date: teDate.text))) {
                   Navigator.of(context).pop();
                 }
               },
@@ -47,7 +46,7 @@ class EventAddDialog extends StatelessWidget {
   }
 
   Widget getTextField(
-      String inputBoxName, TextEditingController inputBoxController) {
+    String inputBoxName, TextEditingController inputBoxController) {
     var loginBtn = new Padding(
       padding: const EdgeInsets.all(5.0),
       child: new TextFormField(
@@ -83,7 +82,7 @@ class EventAddDialog extends StatelessWidget {
     return loginBtn;
   }
 
-  Future<bool> addRecord() async {
+  Future<bool> addRecord(Event event) async {
     EventApi eventApi = EventApi();
 
     return eventApi.putEvent(event);

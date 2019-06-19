@@ -3,8 +3,15 @@
 // found in the LICENSE file.
 import 'package:flutter_web_ui/ui.dart' as ui;
 import 'package:unisinos_events/main.dart' as app;
+import 'package:flutter_web_ui/src/engine.dart' as engine;
 
 main() async {
+  await ui.webOnlyInitializePlatform(
+    assetManager: engine.AssetManager(
+      assetsDir: 'assets'      // Name of my assets folder
+    )
+  );
+
   await ui.webOnlyInitializePlatform();
   app.main();
 }

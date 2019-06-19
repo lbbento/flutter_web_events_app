@@ -61,14 +61,21 @@ class _EventScreenState extends State<EventScreen> implements EventScreenContrac
     return new ListView.builder(
         itemCount: events.length,
         itemBuilder: (BuildContext context, int index) {
-          return new Column(
-            children: <Widget>[
-              new ListTile(
-                title: new Text(events[index].title),
-              ),
-              new Divider(height: 2.0,),
-            ],
-          );
+          return new Center(
+              child: Card(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[      
+                    new ListTile(
+                      leading: Icon(Icons.info),
+                      title: Text(events[index].title),
+                      subtitle: Text('${events[index].description} - ${events[index].date}'),
+                    ),
+                    new Divider(height: 2.0,),
+                  ]
+                ),
+              )          
+            );
         },
     );
   }
